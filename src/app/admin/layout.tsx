@@ -74,6 +74,10 @@ export default function AdminLayout({
     { name: 'Newsletter', href: '/admin/newsletter', icon: <Mail className="h-4 w-4" /> },
   ];
 
+  if (pathname === '/admin/login') {
+    return <>{children}</>;
+  }
+
   if (checking) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center min-h-[70vh] gap-3">
