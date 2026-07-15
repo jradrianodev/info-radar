@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Search, Sparkles, Menu, X, Laptop, Smartphone, Monitor, HardDrive, Keyboard, AudioWaveform as Waveform, Settings } from 'lucide-react';
+import { Search, Sparkles, Menu, X } from 'lucide-react';
 import { dbService } from '@/lib/db';
 import { Product, Review, Article } from '@/lib/seedData';
+import Logo from '@/components/Logo';
 
 export default function Header() {
   const pathname = usePathname();
@@ -89,21 +90,21 @@ export default function Header() {
       <header className="sticky top-0 z-40 w-full border-b border-white/5 glass-effect">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-brand-blue text-white shadow-lg glow-blue group-hover:scale-105 transition-transform">
-              {/* Radar needle icon matching logo concept */}
-              <div className="absolute inset-1 border border-white/20 rounded-full" />
-              <div className="absolute top-1/2 left-1/2 h-4 w-4 -mt-2 -ml-2 rounded-full border border-white/40 border-t-white animate-spin [animation-duration:10s]" />
-              <Sparkles className="h-4 w-4 relative z-10" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xl font-light tracking-tight text-slate-900 dark:text-white leading-none">
-                Info<span className="font-bold text-brand-blue">Radar</span>
-              </span>
-              <span className="text-[9px] text-slate-500 dark:text-slate-400 font-medium tracking-tight">
-                Encontre o melhor
-              </span>
-            </div>
+          <Link href="/" className="flex items-center group" aria-label="InfoRadar - Página inicial">
+            {/* Ícone: exibido em todos os tamanhos */}
+            <Logo
+              variant="icon"
+              width={38}
+              height={38}
+              className="shrink-0 group-hover:scale-105 transition-transform duration-200 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
+            />
+            {/* Wordmark horizontal: só em telas md+ */}
+            <Logo
+              variant="dark"
+              width={160}
+              height={40}
+              className="hidden md:block ml-2 group-hover:opacity-90 transition-opacity duration-200"
+            />
           </Link>
 
           {/* Desktop Nav Links */}
@@ -148,13 +149,7 @@ export default function Header() {
               </kbd>
             </button>
 
-            <Link
-              href="/admin/dashboard"
-              className="hidden sm:flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-300 transition-colors"
-              title="Painel Admin"
-            >
-              <Settings className="h-4 w-4" />
-            </Link>
+
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -184,13 +179,7 @@ export default function Header() {
               <Sparkles className="h-4 w-4 text-brand-blue" />
               <span>Radar IA (Recomendador Inteligente)</span>
             </Link>
-            <Link
-              href="/admin/dashboard"
-              className="flex items-center gap-2 text-sm font-medium py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300"
-            >
-              <Settings className="h-4 w-4 text-slate-500" />
-              <span>Configurações SuperAdmin</span>
-            </Link>
+
           </div>
         )}
       </header>

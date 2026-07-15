@@ -1,84 +1,115 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+/* ─── UI/UX Pro Max Skill — Typography: "Tech Startup" ──────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap');
+
 @import "tailwindcss";
 
+/* ─── Design Tokens ──────────────────────────────────────────────────────────── */
 @theme {
-  --color-brand-blue: #2563EB;
-  --color-brand-blue-hover: #1D4ED8;
-  --color-brand-navy: #1E40AF;
-  --color-brand-dark: #0D1321;
-  --color-brand-dark-card: #151D30;
+  /* Brand Colors */
+  --color-brand-blue:        #2563EB;
+  --color-brand-blue-hover:  #1D4ED8;
+  --color-brand-navy:        #1E40AF;
+  --color-brand-dark:        #0D1321;
+  --color-brand-dark-card:   #151D30;
   --color-brand-dark-border: #1E293B;
-  --color-brand-grey: #687280;
-  --color-brand-light: #F1F5F9;
-  
-  --font-sans: 'Poppins', sans-serif;
-  
-  --animate-fade-in: fade-in 0.3s ease-out;
-  --animate-scale-in: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  --animate-slide-up: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --color-brand-grey:        #687280;
+  --color-brand-light:       #F1F5F9;
+  --color-brand-green:       #22C55E;
+
+  /* UI/UX Pro Max Skill — "Tech Startup" font pairing */
+  --font-sans:    'DM Sans', system-ui, sans-serif;
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+
+  /* Easing (skill recommendation: cubic-bezier(0.16, 1, 0.3, 1)) */
+  --ease-spring:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-back:    cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Animations */
+  --animate-fade-in:    fade-in    0.3s var(--ease-spring);
+  --animate-scale-in:   scale-in   0.25s var(--ease-spring);
+  --animate-slide-up:   slide-up   0.4s var(--ease-spring);
+  --animate-stagger-in: stagger-in 0.4s var(--ease-back) both;
+  --animate-blob-float: blob-float 8s ease-in-out infinite;
 }
 
+/* ─── Keyframes ──────────────────────────────────────────────────────────────── */
 @keyframes fade-in {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
 @keyframes scale-in {
   from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  to   { transform: scale(1);    opacity: 1; }
 }
 
 @keyframes slide-up {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Skill: Stagger Grid — opacity 0→1, scale 0.92→1, y 16→0, back.out(1.4) */
+@keyframes stagger-in {
   from { transform: translateY(12px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  to   { transform: translateY(0)    scale(1);    opacity: 1; }
 }
 
+/* ─── CSS Custom Properties ──────────────────────────────────────────────────── */
 :root {
-  --background: #F8FAFC;
-  --foreground: #0F172A;
-  --card: #FFFFFF;
-  --card-foreground: #0F172A;
-  --popover: #FFFFFF;
-  --popover-foreground: #0F172A;
-  --primary: #2563EB;
-  --primary-foreground: #FFFFFF;
-  --secondary: #F1F5F9;
-  --secondary-foreground: #0F172A;
-  --muted: #64748B;
-  --muted-foreground: #64748B;
-  --accent: #F1F5F9;
-  --accent-foreground: #0F172A;
-  --destructive: #EF4444;
+  --background:          #F8FAFC;
+  --foreground:          #0F172A;
+  --card:                #FFFFFF;
+  --card-foreground:     #0F172A;
+  --popover:             #FFFFFF;
+  --popover-foreground:  #0F172A;
+  --primary:             #2563EB;
+  --primary-foreground:  #FFFFFF;
+  --secondary:           #F1F5F9;
+  --secondary-foreground:#0F172A;
+  --muted:               #64748B;
+  --muted-foreground:    #64748B;
+  --accent:              #F1F5F9;
+  --accent-foreground:   #0F172A;
+  --destructive:         #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: #E2E8F0;
-  --input: #E2E8F0;
-  --ring: #2563EB;
-  --radius: 0.75rem;
+  --border:              #E2E8F0;
+  --input:               #E2E8F0;
+  --ring:                #2563EB;
+  --radius:              0.75rem;
+
+  /* Skill: Space Tech dark tokens (used in dark mode) */
+  --bg-deep:      #0B0D14;
+  --bg-base:      #0D1321;
+  --bg-elevated:  #151D30;
+  --bg-surface:   rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --accent-glow:  rgba(37, 99, 235, 0.25);
 }
 
-/* Force dark mode dashboard style or dark styling where specified */
+/* ─── Dark Mode Tokens ───────────────────────────────────────────────────────── */
 .dark, [data-theme="dark"] {
-  --background: #0D1321;
-  --foreground: #F8FAFC;
-  --card: #151D30;
-  --card-foreground: #F8FAFC;
-  --popover: #151D30;
-  --popover-foreground: #F8FAFC;
-  --primary: #2563EB;
-  --primary-foreground: #FFFFFF;
-  --secondary: #1E293B;
-  --secondary-foreground: #F8FAFC;
-  --muted: #94A3B8;
-  --muted-foreground: #94A3B8;
-  --accent: #1E293B;
-  --accent-foreground: #F8FAFC;
-  --destructive: #EF4444;
+  --background:          var(--bg-base);
+  --foreground:          #F8FAFC;
+  --card:                var(--bg-elevated);
+  --card-foreground:     #F8FAFC;
+  --popover:             var(--bg-elevated);
+  --popover-foreground:  #F8FAFC;
+  --primary:             #2563EB;
+  --primary-foreground:  #FFFFFF;
+  --secondary:           #1E293B;
+  --secondary-foreground:#F8FAFC;
+  --muted:               #94A3B8;
+  --muted-foreground:    #94A3B8;
+  --accent:              #1E293B;
+  --accent-foreground:   #F8FAFC;
+  --destructive:         #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: #1E293B;
-  --input: #1E293B;
-  --ring: #2563EB;
+  --border:              #1E293B;
+  --input:               #1E293B;
+  --ring:                #2563EB;
 }
 
+/* ─── Base Reset ─────────────────────────────────────────────────────────────── */
 * {
   border-color: var(--border);
   box-sizing: border-box;
@@ -87,49 +118,116 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: 'Poppins', sans-serif;
+  /* Skill: "Tech Startup" — DM Sans for body copy */
+  font-family: 'DM Sans', system-ui, sans-serif;
   overflow-x: hidden;
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Scrollbar customizations */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+h1, h2, h3, h4, h5, h6 {
+  /* Skill: "Tech Startup" — Space Grotesk for headings */
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+/* Skill: prefers-reduced-motion compliance */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
+/* ─── Scrollbar ──────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   background: #334155;
   border-radius: 9999px;
 }
+.dark ::-webkit-scrollbar-thumb { background: #475569; }
 
-.dark ::-webkit-scrollbar-thumb {
-  background: #475569;
-}
-
-/* Custom premium styling classes */
+/* ─── Glassmorphism (Skill: Modern Dark Cinema) ──────────────────────────────── */
 .glass-effect {
   background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .dark .glass-effect {
-  background: rgba(13, 19, 33, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(13, 19, 33, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
 }
 
+/* Skill: glass-card — borderRadius 16, hairline border rgba(255,255,255,0.08) */
+.glass-card {
+  background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  transition: border-color 200ms var(--ease-spring),
+              transform    200ms var(--ease-spring),
+              box-shadow   200ms var(--ease-spring);
+}
+
+.dark .glass-card:hover {
+  border-color: rgba(37, 99, 235, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(37, 99, 235, 0.12);
+}
+
+/* ─── Glow Effects ───────────────────────────────────────────────────────────── */
+/* Skill: accent-glow behind primary button */
 .glow-blue {
-  box-shadow: 0 0 40px -5px rgba(37, 99, 235, 0.15);
+  box-shadow: 0 0 40px -5px rgba(37, 99, 235, 0.2);
 }
 
 .glow-blue-strong {
-  box-shadow: 0 0 60px -5px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 0 60px -5px rgba(37, 99, 235, 0.45);
+}
+
+.glow-green {
+  box-shadow: 0 0 30px -5px rgba(34, 197, 94, 0.3);
+}
+
+/* ─── Stagger item (use sparingly, only for real grid lists) ────────────── */
+.stagger-item {
+  animation: stagger-in 0.35s var(--ease-back) both;
+}
+
+/* ─── Scrollbar hide utility ────────────────────────────────────────────── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* ─── Typography Scale (Skill: Space Grotesk headings) ──────────────────────── */
+.heading-hero   { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+.heading-section{ font-size: clamp(1.5rem, 3vw, 2rem);  font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+.body-lead      { font-size: clamp(1rem, 2vw, 1.125rem); font-weight: 400; line-height: 1.7; }
+.label-badge    { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* ─── Interactive Utility (Skill checklist: cursor-pointer + hover transitions) */
+a, button, [role="button"] {
+  cursor: pointer;
+}
+
+.interactive {
+  transition: opacity 150ms ease, transform 200ms var(--ease-spring);
+}
+
+.interactive:hover  { opacity: 0.85; }
+.interactive:active { transform: scale(0.97); }
+
+/* ─── Focus Visible (Skill checklist: focus states for keyboard nav) ─────────── */
+:focus-visible {
+  outline: 2px solid #2563EB;
+  outline-offset: 3px;
+  border-radius: 4px;
 }

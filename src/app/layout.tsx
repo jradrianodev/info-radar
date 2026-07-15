@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -26,14 +27,15 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="pt-BR" className="dark h-full antialiased" style={{ colorScheme: 'dark' }}>
-      <body className="min-h-full flex flex-col bg-brand-dark text-slate-100 font-sans selection:bg-brand-blue selection:text-white">
+      <head>
+        {/* UI/UX Pro Max Skill — Google Fonts preconnect */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body className="min-h-full flex flex-col bg-brand-dark text-slate-100 selection:bg-brand-blue selection:text-white">
         <Header />
         <main className="flex-1 flex flex-col">
           {children}

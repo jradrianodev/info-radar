@@ -7,8 +7,8 @@ export const dbService = {
   async getCategories(): Promise<Category[]> {
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase.from('categories').select('*');
-      if (!error && data) return data as Category[];
-      console.warn('Supabase categories error, using mock:', error);
+      if (!error && data && data.length > 0) return data as Category[];
+      console.warn('Supabase categories empty or error, using mock:', error?.message);
     }
     return mockDb.getCategories();
   },
@@ -61,7 +61,7 @@ export const dbService = {
   async getProducts(): Promise<Product[]> {
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase.from('products').select('*');
-      if (!error && data) return data as Product[];
+      if (!error && data && data.length > 0) return data as Product[];
     }
     return mockDb.getProducts();
   },
@@ -134,7 +134,7 @@ export const dbService = {
   async getReviews(): Promise<Review[]> {
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase.from('reviews').select('*');
-      if (!error && data) return data as Review[];
+      if (!error && data && data.length > 0) return data as Review[];
     }
     return mockDb.getReviews();
   },
@@ -190,7 +190,7 @@ export const dbService = {
   async getComparisons(): Promise<Comparison[]> {
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase.from('comparisons').select('*');
-      if (!error && data) return data as Comparison[];
+      if (!error && data && data.length > 0) return data as Comparison[];
     }
     return mockDb.getComparisons();
   },
@@ -239,8 +239,7 @@ export const dbService = {
   async getArticles(): Promise<Article[]> {
     if (isSupabaseConfigured && supabase) {
       const { data, error } = await supabase.from('articles').select('*');
-      if (!error && data) {
-        // Append placeholder author details for profile relations
+      if (!error && data && data.length > 0) {
         return data.map(art => ({
           ...art,
           author_name: 'Adriano José',
